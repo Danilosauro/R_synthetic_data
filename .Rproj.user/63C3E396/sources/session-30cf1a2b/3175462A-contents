@@ -1,0 +1,51 @@
+# required library to construct synthetic database
+
+install.packages("synthpop")
+library(synthpop)
+
+?synthpop
+
+# getting an example database from package
+
+example_db <- synthpop::SD2011
+
+# getting only the required attributes 
+
+vars <- c("sex", "agegr", "placesize", "edu", "socprof", "marital", "income", "smoke")
+
+ods <- example_db[, vars]
+
+
+# The syn() function, the central function of the synthpop package, generates synthetic
+# versions of a data set provided as its argument. The process of producing synthetic data
+# can be largely automated, if default settings are used, because only data to be synthesised
+# need to be given. 
+
+sds <- syn(ods)
+
+sds
+
+sds_two <- syn(ods, m = 5, method = "cart", cart.minbucket = 10,
+           cont.na = list(income = c(NA, -8)), smoothing = list(income = "density"))
+
+sds_two 
+
+# to comparate data frequencies and distributions.
+
+synthpop::compare(sds, ods, vars="edu") 
+
+
+
+fsds <- glm.synds(I(smoke=="YES") ~ sex + agegr + placesize + edu +
+                    socprof + marital + income, data = sds, family = "binomial")
+summary(fsds)
+compare(fsds, ods)
+
+
+# sdssdc command 
+
+sdssdc <- sdc(sds, ods, label = "false_data",
+              rm.replicated.uniques = TRUE, recode.vars = "income",
+              bottom.top.coding = c(200, 5000), recode.exclude = -8)
+
+sdssdc
