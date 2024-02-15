@@ -1,0 +1,3 @@
+Synthetic data refers to artificially generated data that mimics the statistical properties of real-world data. It is created through algorithms or models to simulate the characteristics, patterns, and distributions found in actual data sets, without containing any identifiable or sensitive information from real individuals or entities. Synthetic data is often used for testing, training machine learning models, and research purposes when real data is unavailable, limited, or privacy concerns exist. 
+
+![synthetic_data_image](https://github.com/Danilosauro/R_synthetic_data/assets/97618452/2ebea8a8-5dde-42e5-b4f7-4db030398e3b)
